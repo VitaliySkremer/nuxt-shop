@@ -1,0 +1,35 @@
+body {
+  min-height: 100vh;
+}
+
+#__nuxt {
+  min-height: 100vh;
+}
+
+.common-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.el-header.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+
+  border-bottom: 2px solid black;
+
+  -webkit-box-shadow: 0 5px 8px 0 rgba(54, 64, 71, 0.2);
+  -moz-box-shadow: 0 5px 8px 0 rgba(54, 64, 71, 0.2);
+  box-shadow: 0 5px 8px 0 rgba(54, 64, 71, 0.2);
+}
+
+.el-main.auth__main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
