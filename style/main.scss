@@ -33,3 +33,15 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.list__item-body-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.text-center {
+  text-align: center;
+}

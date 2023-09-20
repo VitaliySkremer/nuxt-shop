@@ -1,11 +1,12 @@
 import {useAuthStore} from "~/store/authStore";
+import { ElMessage } from 'element-plus'
 
 export const useAuthorization = () =>{
   const login = ref('mor_2314');
   const password = ref('83r5^_');
   const loading = ref(false);
   const store = useAuthStore();
-  const router = useRouter()
+  const router = useRouter();
 
   const onSubmit = async () => {
     try {
@@ -16,7 +17,7 @@ export const useAuthorization = () =>{
       })
       await router.push({name: 'home'})
     }catch (e) {
-      console.log(e)
+      ElMessage.error('Неверный логин или пароль.')
     }finally {
       loading.value = false;
     }

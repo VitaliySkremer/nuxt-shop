@@ -1,9 +1,13 @@
 <template>
-    <ul v-loading.fullscreen="pending">
-        <li v-for="product in products" :key="product.id">
-          {{ product.title }}
-        </li>
-    </ul>
+  <ul class="list__products" v-loading.fullscreen="pending">
+    <li
+      v-for="product in products"
+      :key="product.id"
+      class="list__item"
+    >
+      <Product :product="product"/>
+    </li>
+  </ul>
 </template>
 
 <script setup lang="ts">
@@ -23,5 +27,19 @@ definePageMeta({
 </script>
 
 <style scoped>
+
+.list__products {
+  --gap: 30px;
+  --width: 25%;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list__item {
+  width: calc(var(--width) - var(--gap));
+  margin: calc(var(--gap) / 2);
+}
+
 
 </style>
