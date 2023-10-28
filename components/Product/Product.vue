@@ -11,17 +11,15 @@
       <el-image
           :src="product.thumbnail"
           lazy
-          fit="cover"
+          fit="contain"
           class="product__img"
       />
     </div>
     <div class="product__body">
       <el-rate
-          v-model="product.rating"
+          v-model="rating"
           disabled
           show-score
-          text-color="#f7ba2a"
-          score-template="{value}"
           style="align-self: flex-end"
       />
       <el-text tag="b" class="text-center" size="large" style="margin-bottom: 10px; line-height: 24px">
@@ -48,8 +46,13 @@
         :show-close="false"
     >
       <el-carousel interval="10000000" indicator-position="outside">
-        <el-carousel-item v-for="item in product.images" :key="item">
-          <NuxtImg :src="item" alt="image"/>
+        <el-carousel-item v-for="item in product.images" :key="item" class="info__wrapper">
+          <NuxtImg
+              class="img__info"
+              :src="item"
+              alt="image"
+              loading="lazy"
+          />
         </el-carousel-item>
       </el-carousel>
     </el-dialog>
@@ -73,7 +76,9 @@ interface IProduct {
   }
 }
 
-defineProps<IProduct>()
+const props = defineProps<IProduct>()
+
+const rating = computed(() => props.product.rating.toFixed(1))
 
 const visible = ref(false);
 </script>
@@ -116,6 +121,16 @@ const visible = ref(false);
   flex-direction: column;
   width: 100%;
   box-sizing: border-box;
+}
+.info__wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img__info {
+  height: 100%;
+  object-fit: fill;
 }
 
 </style>
