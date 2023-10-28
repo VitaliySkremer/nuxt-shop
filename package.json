@@ -15,10 +15,11 @@
     "@element-plus/nuxt": "^1.0.5",
     "@nuxt/devtools": "latest",
     "element-plus": "^2.3.12",
-    "nuxt": "^3.7.1",
+    "nuxt": "^3.8.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@nuxt/image": "^1.0.0",
     "@pinia/nuxt": "^0.4.11",
     "pinia": "^2.1.6",
     "sass": "^1.66.1"

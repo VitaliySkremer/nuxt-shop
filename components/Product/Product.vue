@@ -4,16 +4,20 @@
       body-class="list__item-body-content"
       class="list__item-body"
   >
-    <el-image
-        :src="product.image"
-        lazy
-        fit="cover"
-        class="product__img"
-
-    />
+    <div
+        class="product__img-wrapper"
+        @click="visible = true"
+    >
+      <el-image
+          :src="product.thumbnail"
+          lazy
+          fit="cover"
+          class="product__img"
+      />
+    </div>
     <div class="product__body">
       <el-rate
-          v-model="product.rating.rate"
+          v-model="product.rating"
           disabled
           show-score
           text-color="#f7ba2a"
@@ -39,6 +43,16 @@
         </el-tooltip>
       </el-text>
     </div>
+    <el-dialog
+        v-model="visible"
+        :show-close="false"
+    >
+      <el-carousel interval="10000000" indicator-position="outside">
+        <el-carousel-item v-for="item in product.images" :key="item">
+          <NuxtImg :src="item" alt="image"/>
+        </el-carousel-item>
+      </el-carousel>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -50,17 +64,18 @@ interface IProduct {
     category: string,
     description: string,
     id: number,
-    image: string,
+    thumbnail: string,
     price: number,
-    rating: {
-      count: 400,
-      rate: number
-    },
-    title: string
+    rating: number,
+    brand: string,
+    title: string,
+    images: Array<string>
   }
 }
 
 defineProps<IProduct>()
+
+const visible = ref(false);
 </script>
 
 <style scoped>
@@ -69,9 +84,30 @@ defineProps<IProduct>()
   min-height: 350px;
 }
 
-.product__img {
+
+.product__img-wrapper {
   width: 100%;
   height: 250px;
+}
+
+.product__img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.product__img::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 0;
+  background-color: rgba(0, 0, 0, .5);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+.product__img:hover::after {
+  opacity: 1;
 }
 
 .product__body {

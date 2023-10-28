@@ -14,7 +14,7 @@ export const useCategoriesStore = defineStore('categories', ()=>{
 
     const getCategoriesFetch = async () =>{
         try{
-            const { data } = await appFetch('https://fakestoreapi.com/products/categories')
+            const { data } = await appFetch('https://dummyjson.com/products/categories')
             categories.value = new Map(
                 data.value.map((item, index)=>{
                     return [index, item]

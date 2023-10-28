@@ -2,8 +2,8 @@ import {useAuthStore} from "~/store/authStore";
 import { ElMessage } from 'element-plus'
 
 export const useAuthorization = () =>{
-  const login = ref('mor_2314');
-  const password = ref('83r5^_');
+  const login = ref('kminchelle');
+  const password = ref('0lelplR');
   const loading = ref(false);
   const store = useAuthStore();
   const router = useRouter();

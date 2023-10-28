@@ -1,9 +1,10 @@
 <template>
   <ul class="list__products" v-loading.fullscreen="pending">
     <li
-      v-for="product in products"
+      v-for="product in data?.products"
       :key="product.id"
       class="list__item"
+      
     >
       <Product :product="product"/>
     </li>
@@ -17,7 +18,9 @@ import { useCategoriesStore } from '~/store/categoriesStore';
 const store = useCategoriesStore();
 const route = useRoute();
 
-const { pending, data:products } = appFetch(`https://fakestoreapi.com/products/category/${store.getCategories.get(Number(route.params.id))}`)
+const { pending, data } = appFetch(`https://dummyjson.com/products/category/${store.getCategories.get(Number(route.params.id))}`,{
+  pick:['products']
+})
 
 definePageMeta({
   name: 'products',

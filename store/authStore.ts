@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { authFetch } from "~/AppFetch/authFetch";
+import { appAuthFetch } from "../AppFetch/appAuthFetch";
 
 export const useAuthStore = defineStore('authorization', () =>{
   const config = useRuntimeConfig();
@@ -16,9 +16,12 @@ export const useAuthStore = defineStore('authorization', () =>{
 
   const authorization = async (dataBody:IAuthData) =>{
     try{
-      const { data } = await authFetch('https://fakestoreapi.com/auth/login',{
+      interface APIAuth {
+        token: string
+      }
+      const { data } = await appAuthFetch<APIAuth>('https://dummyjson.com/auth/login',{
         method: 'POST',
-        body: dataBody
+        body: dataBody,
       });
       setToken(data.value!.token)
     }
