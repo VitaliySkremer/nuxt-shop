@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { appAuthFetch } from "../AppFetch/appAuthFetch";
+import { appAuthFetch } from "~/AppFetch/appAuthFetch";
 
 export const useAuthStore = defineStore('authorization', () =>{
   const config = useRuntimeConfig();
@@ -12,7 +12,6 @@ export const useAuthStore = defineStore('authorization', () =>{
     username: string,
     password: string
   }
-
 
   const authorization = async (dataBody:IAuthData) =>{
     try{

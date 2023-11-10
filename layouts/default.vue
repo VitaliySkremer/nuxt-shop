@@ -32,7 +32,7 @@ const init = async () => {
     await Promise.all([
       storeCategories.getCategoriesFetch()
     ])
-    console.log(1)
+
   } catch (error) {
     
   }

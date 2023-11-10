@@ -1,5 +1,5 @@
 
-import { UseFetchOptions } from "nuxt/dist/app/composables";
+import type { UseFetchOptions } from "nuxt/dist/app/composables";
 export const appAuthFetch = <DataT>(url: string, options?: UseFetchOptions<DataT>) => {
   return useFetch(url, {
     ...options,

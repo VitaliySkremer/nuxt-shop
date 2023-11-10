@@ -40,12 +40,21 @@
           </el-icon>
         </el-tooltip>
       </el-text>
+      <el-button
+          v-if="isBuy"
+          type="primary"
+          plain
+          @click="addToBasket"
+      >
+        Добавить в корзина
+      </el-button>
     </div>
+
     <el-dialog
         v-model="visible"
         :show-close="false"
     >
-      <el-carousel interval="10000000" indicator-position="outside">
+      <el-carousel :interval="10000000" indicator-position="outside">
         <el-carousel-item v-for="item in product.images" :key="item" class="info__wrapper">
           <NuxtImg
               class="img__info"
@@ -61,26 +70,32 @@
 
 <script setup lang="ts">
 import {QuestionFilled} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
+import type {IProduct} from "~/store/basketStore";
+import {useBasketStore} from "~/store/basketStore";
 
-interface IProduct {
-  product: {
-    category: string,
-    description: string,
-    id: number,
-    thumbnail: string,
-    price: number,
-    rating: number,
-    brand: string,
-    title: string,
-    images: Array<string>
-  }
+interface IProductProps {
+  product: IProduct,
+  isBuy: boolean
 }
 
-const props = defineProps<IProduct>()
+const store = useBasketStore();
 
-const rating = computed(() => props.product.rating.toFixed(1))
+const props = defineProps<IProductProps>()
+
+const rating = computed(() => Number(props.product.rating.toFixed(1)))
 
 const visible = ref(false);
+
+const addToBasket = () => {
+  store.addToBasketProduct(props.product)
+  ElMessage.success({
+    showClose: true,
+    message: `${props.product.title} добавлен. Колличество ${store.getCount(props.product)}`,
+    type: 'success',
+    duration: 1000,
+  })
+}
 </script>
 
 <style scoped>

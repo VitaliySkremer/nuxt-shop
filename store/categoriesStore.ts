@@ -1,11 +1,6 @@
 import { defineStore } from "pinia";
 import { appFetch } from "~/AppFetch/appFetch";
 
-export interface ICategories {
-    title: string,
-    id: number
-}
-
 export const useCategoriesStore = defineStore('categories', ()=>{
     const categories = ref(new Map());
 
@@ -14,10 +9,11 @@ export const useCategoriesStore = defineStore('categories', ()=>{
 
     const getCategoriesFetch = async () =>{
         try{
-            const { data } = await appFetch('https://dummyjson.com/products/categories')
+            const { data } = await appFetch<string[]>('https://dummyjson.com/products/categories')
             categories.value = new Map(
-                data.value.map((item, index)=>{
-                    return [index, item]
+                data.value?.map((item, index)=>{
+                    const key = index + 1;
+                    return [key.toString(), item]
                 })
             )
         }

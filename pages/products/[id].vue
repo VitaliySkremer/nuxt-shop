@@ -6,7 +6,7 @@
       class="list__item"
       
     >
-      <Product :product="product"/>
+      <Product isBuy :product="product"/>
     </li>
   </ul>
 </template>
@@ -18,7 +18,7 @@ import { useCategoriesStore } from '~/store/categoriesStore';
 const store = useCategoriesStore();
 const route = useRoute();
 
-const { pending, data } = appFetch(`https://dummyjson.com/products/category/${store.getCategories.get(Number(route.params.id))}`,{
+const { pending, data } = appFetch(`https://dummyjson.com/products/category/${store.getCategories.get(route.params.id)}`,{
   pick:['products']
 })
 
@@ -30,19 +30,6 @@ definePageMeta({
 </script>
 
 <style scoped>
-
-.list__products {
-  --gap: 30px;
-  --width: 25%;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.list__item {
-  width: calc(var(--width) - var(--gap));
-  margin: calc(var(--gap) / 2);
-}
 
 
 </style>

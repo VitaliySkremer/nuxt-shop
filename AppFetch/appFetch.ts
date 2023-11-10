@@ -1,7 +1,7 @@
-import { UseFetchOptions } from "nuxt/dist/app/composables";
+import type { UseFetchOptions } from "nuxt/dist/app/composables";
 import { useAuthStore } from "~/store/authStore";
 
-export const appFetch = (url: string, options?: UseFetchOptions<object>) => {
+export const appFetch = <DataT>(url: string, options?: UseFetchOptions<DataT>) => {
     const store = useAuthStore();
     return useFetch(url, {
         ...options,
