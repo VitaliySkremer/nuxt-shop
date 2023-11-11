@@ -1,12 +1,12 @@
 <template>
   <ul class="list__products" >
     <li
-        v-for="product in store.getBasket"
-        :key="product.id"
+        v-for="[key, value] in store.getBasket"
+        :key="key"
         class="list__item"
 
     >
-      <Product :isBuy="false" :product="product"/>
+      <Product :isBuy="false" :product="value"/>
     </li>
   </ul>
 </template>

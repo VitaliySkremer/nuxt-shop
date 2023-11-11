@@ -9,24 +9,30 @@ export interface IProduct {
   rating: number,
   brand: string,
   title: string,
-  images: Array<string>
+  images: Array<string>,
+  count: number;
 }
 export const useBasketStore = defineStore('basket', () => {
-  const basket = ref<IProduct[]>([])
+  const basket = ref<Map<number, IProduct>>(new Map())
 
   const getBasket = computed(()=> basket.value);
 
   const addToBasketProduct = (product: IProduct) => {
-    basket.value.push(product)
+    const prod = basket.value.get(product.id)
+    
+    if(prod){
+        basket.value.set(product.id, {...prod, count: prod.count + 1});
+    } else {
+      basket.value.set(product.id, {...product, count: 1});
+    }
+
   }
 
   const getCount = (product: IProduct) => {
-    return basket.value.reduce((acc, el)=>{
-      if(product.id === el.id){
-        acc++;
-      }
-      return acc;
-    }, 0)
+    if(basket.value.has(product.id)){
+      return basket.value.get(product.id)?.count
+    }
+    return 0
   }
 
   return {

@@ -40,6 +40,9 @@
           </el-icon>
         </el-tooltip>
       </el-text>
+      <div v-if="!isBuy">
+        {{  product.count  }}
+      </div>
       <el-button
           v-if="isBuy"
           type="primary"
