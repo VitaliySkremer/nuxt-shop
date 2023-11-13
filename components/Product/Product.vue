@@ -40,8 +40,19 @@
           </el-icon>
         </el-tooltip>
       </el-text>
-      <div v-if="!isBuy">
-        {{  product.count  }}
+      <el-text tag="b" class="text-center price" size="large">
+        {{ Intl.NumberFormat('en-US',{ style:'currency', currency: 'USD' }).format(product.price) }}
+      </el-text>
+      <div class="product__count" v-if="!isBuy">
+        <el-button @click="removeItemOnBasket" :disabled="product.count <= 1">
+          -
+        </el-button>
+        <el-text tag="b" class="text-center count" size="large">
+          {{  product.count  }}
+        </el-text>
+        <el-button  @click="addToBasket">
+          +
+        </el-button>
       </div>
       <el-button
           v-if="isBuy"
@@ -92,9 +103,18 @@ const visible = ref(false);
 
 const addToBasket = () => {
   store.addToBasketProduct(props.product)
+  viewMessageAlert(`${props.product.title} добавлен. Колличество ${store.getBasket.get(props.product.id)?.count}`)
+}
+
+const removeItemOnBasket = () => {
+  store.removeItemProduct(props.product)
+  viewMessageAlert(`${props.product.title} удалён. Колличество ${store.getBasket.get(props.product.id)?.count}`);
+}
+
+const viewMessageAlert = (ms: string) => {
   ElMessage.success({
     showClose: true,
-    message: `${props.product.title} добавлен. Колличество ${store.getCount(props.product)}`,
+    message: ms,
     type: 'success',
     duration: 1000,
   })
@@ -149,6 +169,17 @@ const addToBasket = () => {
 .img__info {
   height: 100%;
   object-fit: fill;
+}
+.product__count {
+  display: flex;
+  align-self: center;
+  align-items: center;
+}
+.price {
+  margin-bottom: 10px;
+}
+.count {
+  padding: 10px;
 }
 
 </style>

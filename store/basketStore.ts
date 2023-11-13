@@ -16,6 +16,14 @@ export const useBasketStore = defineStore('basket', () => {
   const basket = ref<Map<number, IProduct>>(new Map())
 
   const getBasket = computed(()=> basket.value);
+  const totalPrice = computed(()=> {
+    let result = 0;
+    for(let value of basket.value.values()){
+      result += value.price * value.count
+    }
+
+    return result;
+  })
 
   const addToBasketProduct = (product: IProduct) => {
     const prod = basket.value.get(product.id)
@@ -28,6 +36,14 @@ export const useBasketStore = defineStore('basket', () => {
 
   }
 
+  const removeItemProduct = (product: IProduct) => {
+    const prod = basket.value.get(product.id)
+
+    if(prod && prod.count > 1){
+      basket.value.set(product.id, {...prod, count: prod.count - 1});
+    }
+  }
+
   const getCount = (product: IProduct) => {
     if(basket.value.has(product.id)){
       return basket.value.get(product.id)?.count
@@ -38,6 +54,8 @@ export const useBasketStore = defineStore('basket', () => {
   return {
     getBasket,
     addToBasketProduct,
-    getCount
+    getCount,
+    removeItemProduct,
+    totalPrice
   }
 })
